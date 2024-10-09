@@ -67,7 +67,7 @@ class _LoginState extends State<Login> {
                       context: context,
                       type: QuickAlertType.error,
                       title: 'Oops...',
-                      text: 'Sorry, something went wrong',
+                      text: 'Algo salio mal, comprueba tus credenciales',
                     );
                   }
                 },
