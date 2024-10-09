@@ -18,7 +18,7 @@ class _NuevacategoriaState extends State<Nuevacategoria> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Categorias"),
+        title: Text("Ver Categorias"),
       ),
       body: SingleChildScrollView(
         child: Column(
