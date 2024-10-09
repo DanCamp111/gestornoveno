@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:proyecto/Models/Categorias.dart';
 import 'package:http/http.dart' as http;
+import 'package:proyecto/Utils/Ambiente.dart';
 import 'package:proyecto/page/NuevaCategoria.dart';
 
 class Home extends StatefulWidget {
@@ -17,7 +18,7 @@ class _HomeState extends State<Home> {
 
   void fnObtenerCategorias() async {
     final response = await http.get(
-        Uri.parse('http://10.172.254.247:8000/api/categorias'),
+        Uri.parse('${Ambiente.urlServer}/api/categorias'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Accept': 'application/json'
