@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:proyecto/Models/LoginResponse.dart';
+import 'package:proyecto/Utils/Ambiente.dart';
 import 'package:proyecto/page/home.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:http/http.dart' as http;
@@ -46,7 +47,7 @@ class _LoginState extends State<Login> {
             TextButton(
                 onPressed: () async {
                   final response = await http.post(
-                      Uri.parse('http://10.172.254.247:8000/api/login'),
+                      Uri.parse('${Ambiente.urlServer}/api/login'),
                       body: jsonEncode(<String, dynamic>{
                         'email': txtUser.text,
                         'password': txtPass.text
@@ -59,9 +60,11 @@ class _LoginState extends State<Login> {
                   Map<String, dynamic> responseJson = jsonDecode(response.body);
                   final loginResponse = LoginResponse.fromJson(responseJson);
                   if (loginResponse.acceso == "OK") {
+                    // Guarda el idUsuario en la clase Ambiente
+                    Ambiente.id_usuario = loginResponse.idUsuario;
+                    print('ID del usuario logueado: ${Ambiente.id_usuario}');
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Home())
-                  );
+                        MaterialPageRoute(builder: (context) => const Home()));
                   } else {
                     QuickAlert.show(
                       context: context,
