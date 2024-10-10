@@ -60,6 +60,9 @@ class _LoginState extends State<Login> {
                   Map<String, dynamic> responseJson = jsonDecode(response.body);
                   final loginResponse = LoginResponse.fromJson(responseJson);
                   if (loginResponse.acceso == "OK") {
+                    // Guarda el idUsuario en la clase Ambiente
+                    Ambiente.id_usuario = loginResponse.idUsuario;
+                    print('ID del usuario logueado: ${Ambiente.id_usuario}');
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => const Home()));
                   } else {
