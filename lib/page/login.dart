@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:proyecto/Models/LoginResponse.dart';
 import 'package:proyecto/Utils/Ambiente.dart';
-import 'package:proyecto/page/home.dart';
+import 'package:proyecto/page/menu.dart'; // Import the Menu page
 import 'package:quickalert/quickalert.dart';
 import 'package:http/http.dart' as http;
 
@@ -64,7 +64,7 @@ class _LoginState extends State<Login> {
                     Ambiente.id_usuario = loginResponse.idUsuario;
                     print('ID del usuario logueado: ${Ambiente.id_usuario}');
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Home()));
+                        MaterialPageRoute(builder: (context) => Menu())); // Navigate to Menu page
                   } else {
                     QuickAlert.show(
                       context: context,
