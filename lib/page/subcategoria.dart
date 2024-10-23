@@ -4,6 +4,7 @@ import 'package:proyecto/Models/Subcategorias.dart';
 import 'package:http/http.dart' as http;
 import 'package:proyecto/Utils/Ambiente.dart';
 import 'package:proyecto/page/NuevaSubcategoria.dart';
+import 'package:proyecto/page/menu.dart';
 
 class HomeSubcategorias extends StatefulWidget {
   const HomeSubcategorias({super.key});
@@ -155,6 +156,7 @@ class _HomeSubcategoriasState extends State<HomeSubcategorias> {
       appBar: AppBar(
         title: Text("Subcategorías"),
       ),
+      drawer: CustomDrawer(),
       body: _ListviewSubcategorias(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
