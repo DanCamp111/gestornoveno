@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:proyecto/Models/Categorias.dart';
 import 'package:proyecto/Utils/Ambiente.dart';
 import 'package:proyecto/page/home.dart';
+import 'package:proyecto/page/menu.dart';
 
 class Nuevacategoria extends StatefulWidget {
   final Categorias? categoria; // Recibir la categoría si es para editar
@@ -34,6 +35,7 @@ class _NuevacategoriaState extends State<Nuevacategoria> {
         title: Text(
             widget.categoria == null ? "Nueva Categoría" : "Editar Categoría"),
       ),
+      drawer: CustomDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [

@@ -4,6 +4,7 @@ import 'package:proyecto/Models/Categorias.dart';
 import 'package:http/http.dart' as http;
 import 'package:proyecto/Utils/Ambiente.dart';
 import 'package:proyecto/page/NuevaCategoria.dart';
+import 'menu.dart'; // Asegúrate de que la ruta sea correcta
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -42,14 +43,13 @@ class _HomeState extends State<Home> {
     );
 
     if (response.statusCode == 200 || response.statusCode == 204) {
-      // Remueve la categoría de la lista localmente
       categorias.removeWhere((categoria) => categoria.id == id);
       setState(() {});
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Categoría eliminada con éxito')),
       );
     } else {
-      print('Error al eliminar: ${response.body}'); // Imprimir el error
+      print('Error al eliminar: ${response.body}');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error al eliminar la categoría')),
       );
@@ -91,7 +91,6 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // Confirmación de eliminación
   void _confirmarEliminacion(int id) {
     showDialog(
       context: context,
@@ -102,14 +101,14 @@ class _HomeState extends State<Home> {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Cerrar el diálogo
+                Navigator.of(context).pop();
               },
               child: Text('Cancelar'),
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Cerrar el diálogo
-                fnEliminarCategoria(id); // Llamar a la función de eliminación
+                Navigator.of(context).pop();
+                fnEliminarCategoria(id);
               },
               child: Text('Eliminar'),
             ),
@@ -131,6 +130,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text("Categorías"),
       ),
+      drawer: CustomDrawer(), // Aquí importas el Drawer
       body: _ListviewCategorias(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

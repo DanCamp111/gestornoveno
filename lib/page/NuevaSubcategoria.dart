@@ -5,6 +5,7 @@ import 'package:proyecto/Models/Categorias.dart';
 import 'package:proyecto/Models/Subcategorias.dart';
 import 'package:proyecto/Utils/Ambiente.dart';
 import 'package:proyecto/page/home.dart';
+import 'package:proyecto/page/menu.dart';
 import 'package:proyecto/page/subcategoria.dart';
 
 class NuevaSubcategoria extends StatefulWidget {
@@ -102,6 +103,7 @@ class _NuevaSubcategoriaState extends State<NuevaSubcategoria> {
       appBar: AppBar(
         title: Text(widget.subcategoria == null ? "Nueva Subcategoría" : "Editar Subcategoría"),
       ),
+      drawer: CustomDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [
