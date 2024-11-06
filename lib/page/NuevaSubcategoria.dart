@@ -25,19 +25,7 @@ class _NuevaSubcategoriaState extends State<NuevaSubcategoria> {
   @override
   void initState() {
     super.initState();
-    fnObtenerCategorias(); // Obtener las categorías al iniciar
-
-    // Si estamos editando una subcategoría, llenamos los campos
-    if (widget.subcategoria != null) {
-      txtNombre.text = widget.subcategoria!.nombre;
-
-      // Verificamos si la categoría de la subcategoría existe en la lista de categorías
-      if (categorias.any((categoria) => categoria.id == widget.subcategoria!.categoria.id)) {
-        categoriaSeleccionada = categorias.firstWhere(
-          (categoria) => categoria.id == widget.subcategoria!.categoria.id,
-        );
-      }
-    }
+    fnObtenerCategorias();
   }
 
   // Función para obtener las categorías del servidor
@@ -57,6 +45,17 @@ class _NuevaSubcategoriaState extends State<NuevaSubcategoria> {
           mapCategorias.map((model) => Categorias.fromJson(model)),
         );
       });
+
+      // Si estamos editando una subcategoría, establecer la categoría actual
+      if (widget.subcategoria != null) {
+        txtNombre.text = widget.subcategoria!.nombre;
+
+        setState(() {
+          categoriaSeleccionada = categorias.firstWhere(
+            (categoria) => categoria.id == widget.subcategoria!.categoria.id,// En caso de que la categoría no exista
+          );
+        });
+      }
     } else {
       print('Error al cargar categorías');
     }

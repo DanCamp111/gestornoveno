@@ -18,19 +18,26 @@ class _HomeState extends State<Home> {
 
   void fnObtenerCategorias() async {
     final response = await http.get(
-        Uri.parse('${Ambiente.urlServer}/api/categorias'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Accept': 'application/json'
-        });
-    print(response.body);
+      Uri.parse('${Ambiente.urlServer}/api/categorias'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json'
+      },
+    );
 
-    Iterable mapCategorias = jsonDecode(response.body);
-    categorias = List<Categorias>.from(
-        mapCategorias.map((model) => Categorias.fromJson(model)));
-    categorias.sort((a, b) => a.id.compareTo(b.id));
+    if (response.statusCode == 200) {
+      print("Respuesta exitosa: ${response.body}"); // Imprime la respuesta
 
-    setState(() {});
+      Iterable mapCategorias = jsonDecode(response.body);
+      categorias = List<Categorias>.from(
+          mapCategorias.map((model) => Categorias.fromJson(model)));
+      categorias.sort((a, b) => a.id.compareTo(b.id));
+
+      setState(() {});
+    } else {
+      print(
+          "Error en la respuesta: ${response.body}"); // Imprime el error si lo hay
+    }
   }
 
   void fnEliminarCategoria(int id) async {
@@ -60,9 +67,26 @@ class _HomeState extends State<Home> {
     return ListView.builder(
       itemCount: categorias.length,
       itemBuilder: (context, index) {
-        return ListTile(
+        // Verifica si la categoría tiene subcategorías
+        var subcategorias = categorias[index].subcategorias;
+
+        return ExpansionTile(
           title: Text(categorias[index].nombre),
-          subtitle: Text('ID: ${categorias[index].id}'),
+          children: subcategorias.isNotEmpty
+              ? subcategorias.map((subcategoria) {
+                  return ListTile(
+                    title: Text(subcategoria.nombre),
+                    onTap: () {
+                      // Opcional: acción al seleccionar una subcategoría
+                    },
+                  );
+                }).toList()
+              : [
+                  // Si no tiene subcategorías, muestra el texto "Sin Subcategorías"
+                  ListTile(
+                    title: Text("Sin Subcategorías"),
+                  ),
+                ],
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
